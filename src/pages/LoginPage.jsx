@@ -17,4 +17,4 @@ const LoginPage = () => {
   );
 };
 
-export default NotFoundErrorPage;
+export default LoginPage;
