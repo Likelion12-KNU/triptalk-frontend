@@ -17,7 +17,7 @@ function App() {
 		  </Helmet>
     <Routes>
       <Route path="/" element={<PostListPage />} />
-	  <Route path="/list" element={<PostListPage />} />
+	    <Route path="/list" element={<PostListPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/write" element={<WritePage />} />
@@ -31,4 +31,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

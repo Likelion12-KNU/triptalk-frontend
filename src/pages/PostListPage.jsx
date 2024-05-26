@@ -16,4 +16,4 @@ const PostPage = () => {
   );
 };
 
-export default PostListPage;
+export default PostPage;
