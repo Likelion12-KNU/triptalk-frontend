@@ -1,18 +1,13 @@
 import React from 'react';
-
-import styled from 'styled-components';
-
-const PostPageBlock = styled.div`
-
-`;
+import HeaderContainer from '../containers/common/HeaderContainer';
+import PostViewerContainer from '../containers/post/PostViewerContainer';
 
 const PostPage = () => {
   return (
-    <PostPageBlock>
-    <div>
-        PostPage
-	 </div>
-     </PostPageBlock>
+  <div>
+	<HeaderContainer></HeaderContainer>
+	<PostViewerContainer></PostViewerContainer>
+  </div>
   );
 };
 
