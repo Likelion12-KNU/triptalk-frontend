@@ -1,17 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const RegisterPageBlock = styled.div`
-
-`;
+import AuthTemplate from '../components/auth/AuthTemplate';
+import RegisterForm from '../containers/auth/RegisterForm';
 
 const RegisterPage = () => {
   return (
-    <RegisterPageBlock>
-    <div>
-        회원가입 페이지
-	 </div>
-     </RegisterPageBlock>
+    <AuthTemplate>
+      <RegisterForm />
+    </AuthTemplate>
   );
 };
 
