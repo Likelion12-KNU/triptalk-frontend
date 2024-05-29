@@ -1,18 +1,17 @@
 import React from 'react';
-
-import styled from 'styled-components';
-
-const WritePageBlock = styled.div`
-
-`;
-
+import Responsive from '../components/common/Responsive';
+import EditorContainer from '../containers/write/EditorContainer';
+import WriteActionButtonsContainer from '../containers/write/WriteActionButtonsContainer';
+import {Helmet} from 'react-helmet-async';
 const WritePage = () => {
   return (
-    <WritePageBlock>
-    <div>
-        WritePage
-	 </div>
-     </WritePageBlock>
+    <Responsive>
+	  <Helmet>
+	  	<title>글작성하기</title>
+	  </Helmet>
+      <EditorContainer />
+      <WriteActionButtonsContainer />
+    </Responsive>
   );
 };
 
