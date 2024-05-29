@@ -1,19 +1,12 @@
-import React from 'react';
-
-import styled from 'styled-components';
-
-const PostListPageBlock = styled.div`
-
-`;
-
-const PostPage = () => {
+import HeaderContainer from '../containers/common/HeaderContainer';
+import PostListContainer from '../containers/posts/PostListContainer';
+const PostListPage = () => {
   return (
-    <PostListPageBlock>
-    <div>
-        PostListPage
-	 </div>
-     </PostListPageBlock>
+    <>
+      <HeaderContainer />
+      <PostListContainer/>
+    </>
   );
 };
 
-export default PostPage;
+export default PostListPage;
