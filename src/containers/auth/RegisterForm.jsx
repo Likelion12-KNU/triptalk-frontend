@@ -30,9 +30,9 @@ const RegisterForm = ({ history }) => {
   // 폼 등록 이벤트 핸들러
   const onSubmit = (e) => {
     e.preventDefault();
-    const { username, password, passwordConfirm } = form;
+    const { username, password, passwordConfirm, email, nickname } = form;
     // 하나라도 비어있다면
-    if ([username, password, passwordConfirm].includes('')) {
+    if ([username, password, passwordConfirm, email, nickname].includes('')) {
       setError('빈 칸을 모두 입력하세요.');
       return;
     }
@@ -45,7 +45,7 @@ const RegisterForm = ({ history }) => {
       );
       return;
     }
-    dispatch(register({ username, password }));
+    dispatch(register({ username, password, email, nickname }));
   };
 
   // 컴포넌트가 처음 렌더링 될 때 form 을 초기화함

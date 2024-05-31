@@ -13,7 +13,7 @@ const [
 
 export const listPosts = createAction(
 	LIST_POSTS,
-	({tag, username, page}) => ({tag, username, page}),
+	({username}) => ({username}),
 );
 
 // saga 생성
@@ -24,9 +24,8 @@ export function* postsSaga() {
 }
 
 const initialState = {
-  posts: null,
+  posts: [],
   error: null,
-  lastPage: 1,
 };
 
 const posts = handleActions(
@@ -34,7 +33,6 @@ const posts = handleActions(
     [LIST_POSTS_SUCCESS]: (state, { payload: posts, meta:response }) => ({
       ...state,
       posts,
-	  lastPage: parseInt(response.headers['last-page'], 10), // 문자열을 숫자로 반환
     }),
     // 포스트 작성 실패
     [LIST_POSTS_FAILURE]: (state, { payload: error }) => ({
