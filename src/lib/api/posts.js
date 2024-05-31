@@ -1,20 +1,20 @@
 import client from './client';
 
-export const writePost = ({ title, body }) =>
-  client.post('/api/posts', { title, body });
+export const writePost = ({ title, content }) =>
+  client.post('/api/posts', { title, content });
 
 export const readPost = id => client.get(`/api/posts/${id}`);
   
-export const listPosts = ({page, username}) => {
+export const listPosts = ({id, title, content, nickname}) => {
   return client.get(`/api/posts`, {
-    params: {page, username},
+    params: {id, title, content, nickname},
   });
 };
   
-export const updatePost = ({id, title, body}) => 
-  client.patch(`/api/posts/${id}`, {
+export const updatePost = ({id, title, content}) => 
+  client.put(`/api/posts/${id}`, {
     title,
-    body,
+    content,
 });
   
 export const removePost = id => client.delete(`/api/posts/${id}`);
