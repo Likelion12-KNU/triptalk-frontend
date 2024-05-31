@@ -8,6 +8,6 @@ const client = axios.create({
     // 필요에 따라 추가 옵션 설정
     // timeout: 1000,
     // headers: {'X-Custom-Header': 'foobar'}
-d});
+});
 
 export default client;
