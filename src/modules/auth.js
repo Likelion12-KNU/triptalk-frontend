@@ -16,6 +16,7 @@ const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes(
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
   'auth/LOGIN'
 );
+const AUTH_DELETE = 'auth/AUTH_DELETE';
 
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -36,6 +37,8 @@ export const login = createAction(LOGIN, ({ username, password }) => ({
   username,
   password
 }));
+
+export const authDelete = createAction(AUTH_DELETE);
 
 // saga 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.signup);
@@ -91,6 +94,11 @@ const auth = handleActions(
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error
+    })
+    ,
+    [AUTH_DELETE]: (state) => ({
+      ...state,
+      auth: null,
     })
   },
   initialState

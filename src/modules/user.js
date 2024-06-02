@@ -39,8 +39,9 @@ function setUserSaga(user) {
   }
 }
 function* logoutSaga() {
+  console.log('call logoutSaga');
   try {
-    yield call(authAPI.logout); // logout API 호출
+    // yield call(authAPI.logout); // logout API 호출
     localStorage.removeItem('user'); // localStorage 에서 user 제거
   } catch (e) {
     console.log(e);
@@ -74,7 +75,7 @@ export default handleActions(
       ...state,
       user,
       checkError: null,
-    }),
+          }),
     [CHECK_FAILURE]: (state, { payload: error }) => ({
       ...state,
       user: null,

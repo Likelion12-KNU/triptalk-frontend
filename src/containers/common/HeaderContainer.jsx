@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../../components/common/Header';
 import { logout } from '../../modules/user';
+import { authDelete } from '../../modules/auth';
 
 const HeaderContainer = () => {
   // const { user } = useSelector(({ user }) => ({ user: user.nickname }));
@@ -9,6 +10,7 @@ const HeaderContainer = () => {
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
+    dispatch(authDelete());
   };
   // console.log("user", user);
   // console.log(1);
