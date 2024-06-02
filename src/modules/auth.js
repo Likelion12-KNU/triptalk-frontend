@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import {produce} from 'immer';
-import { takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import createRequestSaga, {
   createRequestActionTypes
 } from '../lib/createRequestSaga';
@@ -42,7 +42,18 @@ export const authDelete = createAction(AUTH_DELETE);
 
 // saga 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.signup);
-const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+// const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+
+function* loginSaga(action) {
+  try {
+    const response = yield call(authAPI.login, action.payload);
+    yield put({ type: LOGIN_SUCCESS, payload: response.data, response: response, token:response.headers['authorization'] || response.headers.get('Authorization')});
+  } catch (e) {
+    yield put({ type: LOGIN_FAILURE, payload: e, error: true });
+  }
+}
+
+
 export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(LOGIN, loginSaga);
@@ -85,17 +96,24 @@ const auth = handleActions(
       authError: error
     }),
     // 로그인 성공
-    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
-      ...state,
-      authError: null,
-      auth
-    }),
+    [LOGIN_SUCCESS]: (state, { payload: auth, response, token}) => {
+      // 로컬스토리지에 토큰 저장
+      localStorage.setItem('token', auth.token);
+      console.log('response', response);
+      console.log('token1', token);
+
+      
+      return {
+        ...state,
+        authError: null,
+        auth
+      };
+    },
     // 로그인 실패
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error
-    })
-    ,
+    }),
     [AUTH_DELETE]: (state) => ({
       ...state,
       auth: null,

@@ -43,14 +43,15 @@ function* logoutSaga() {
   try {
     // yield call(authAPI.logout); // logout API 호출
     localStorage.removeItem('user'); // localStorage 에서 user 제거
+    localStorage.removeItem('token'); // localStorage 에서 토큰 제거
   } catch (e) {
     console.log(e);
   }
 }
 
 export function* userSaga() {
-  yield takeLatest(CHECK, checkSaga);
-  yield takeLatest(CHECK_FAILURE, checkFailureSaga);
+  // yield takeLatest(CHECK, checkSaga);
+  // yield takeLatest(CHECK_FAILURE, checkFailureSaga);
   yield takeLatest(LOGOUT, logoutSaga);
   yield takeLatest(SET_USER, setUserSaga);
 }

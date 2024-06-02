@@ -30,7 +30,7 @@ const initialState = {
 
 const posts = handleActions(
   {
-    [LIST_POSTS_SUCCESS]: (state, { payload: posts, meta:response }) => ({
+    [LIST_POSTS_SUCCESS]: (state, { payload: posts }) => ({
       ...state,
       posts,
     }),
