@@ -98,11 +98,9 @@ const auth = handleActions(
     // 로그인 성공
     [LOGIN_SUCCESS]: (state, { payload: auth, response, token}) => {
       // 로컬스토리지에 토큰 저장
-      localStorage.setItem('token', auth.token);
-      console.log('response', response);
-      console.log('token1', token);
-
-      
+      localStorage.setItem('token',token);
+      // console.log('response', response);
+      // console.log('token1', token);      
       return {
         ...state,
         authError: null,
