@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { changeField, initializeForm, login } from '../../modules/auth';
+import { setUser } from '../../modules/user';
 import AuthForm from '../../components/auth/AuthForm';
 // import { check } from '../../modules/user';
 
@@ -46,16 +47,19 @@ const LoginForm = () => {
     if (auth) {
       console.log('로그인 성공');
       // dispatch(check());
+      
       console.log(auth);
       user = auth.user;
       console.log(user);
       try {
         localStorage.setItem('user', JSON.stringify(user));
+        dispatch(setUser(user));
+        navigate('/');
       } catch (e) {
         console.log('localStorage is not working');
       }
     }
-    navigate('/');
+    
 
   }, [auth, authError, dispatch]);
 

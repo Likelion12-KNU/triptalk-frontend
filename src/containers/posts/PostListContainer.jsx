@@ -16,7 +16,7 @@ const PostListContainer = () => {
 		user: user.user,
 	}),
 	);
-	
+	console.log(" PostListContainer user", user);
 	useEffect(() => {
 		dispatch(listPosts({username}));
 		
