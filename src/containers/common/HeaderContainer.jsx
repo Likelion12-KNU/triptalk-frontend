@@ -24,7 +24,7 @@ const HeaderContainer = () => {
   // }
   // console.log("user", user);
   // console.log(1);
-  if(user){
+  if(user && typeof user === 'string'){
     user = JSON.parse(user);
   }
   return <Header user={user} onLogout={onLogout} />;
