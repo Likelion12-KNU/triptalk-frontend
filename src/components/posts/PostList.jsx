@@ -43,14 +43,14 @@ p{
 
 
 const PostItem = ({post}) => {
-	const {publishedDate, user, tags, title, body, _id} = post;
+	const {nickname, title, content, _id} = post;
 	return(
 		<PostItemBlock>
 			<h2>
-			<Link to={`/postlist/${user.username}/${_id}`}>{title}</Link>
+			<Link to={`/postlist/${nickname}/${_id}`}>{title}</Link>
 			</h2>
-			<SubInfo username={user.username} publishedDate = {new Date(publishedDate)}></SubInfo>
-			<p>{body}</p>
+			<SubInfo username={nickname} ></SubInfo>
+			<p>{content}</p>
 		</PostItemBlock>
 	)
 }

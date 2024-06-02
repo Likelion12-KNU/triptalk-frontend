@@ -17,7 +17,7 @@ span + span:before{
 }
 `;
 
-const SubInfo  = ({username, publishedDate, hasMarginTop}) => {
+const SubInfo  = ({username, hasMarginTop}) => {
 	return(
 	<SubInfoBlock hasMarginTop={hasMarginTop}>
 		<span>
@@ -25,7 +25,7 @@ const SubInfo  = ({username, publishedDate, hasMarginTop}) => {
 				<Link to ={`/postlist/${username}`}>{username}</Link>
 			</b>
 			</span>
-		<span>{new Date(publishedDate).toLocaleDateString()}</span>
+		{/* <span>{new Date(publishedDate).toLocaleDateString()}</span> */}
 	</SubInfoBlock>
 	);
 };
