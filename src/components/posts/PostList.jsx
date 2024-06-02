@@ -63,7 +63,7 @@ const PostList = ({posts, loading, error, showWriteButton}) => {
 	<PostListBlock>
 		<WritePostButtonWrapper>
 			{showWriteButton && (
-			<Button cyan to="/write">
+			<Button to="/write">
 			 새글 작성하기
 			</Button>
 			)}
@@ -72,7 +72,7 @@ const PostList = ({posts, loading, error, showWriteButton}) => {
 			{!loading && posts && (
 			<div>
 			{posts.map(post=>(
-					<PostItem post={post} key={post._id} ></PostItem>
+					<PostItem post={post} key={post.id} ></PostItem>
 					))}
 			</div>
 			)}
