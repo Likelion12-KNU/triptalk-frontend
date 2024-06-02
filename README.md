@@ -4,5 +4,5 @@
 루트 파일에 .env파일을 생성해야합니다.   
 다음 아래 내용을 추가합니다. 
 ---
-REACT_APP_API_URL=https://api.example.com  
+VITE_API_URL=https://api.example.com  
 ---
