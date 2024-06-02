@@ -7,9 +7,9 @@ import { writePost, updatePost } from '../../modules/write';
 const WriteActionButtonsContainer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { title, body, post, postError, originalPostId } = useSelector(({ write }) => ({
+  const { title, content, post, postError, originalPostId } = useSelector(({ write }) => ({
     title: write.title,
-    body: write.body,
+    content: write.content,
     post: write.post,
     postError: write.postError,
 	originalPostId: write.originalPostId,
@@ -22,7 +22,7 @@ const WriteActionButtonsContainer = () => {
       dispatch(
         updatePost({
           title,
-          body,
+          content,
 		  id: originalPostId,
         }),
       );
@@ -31,7 +31,7 @@ const WriteActionButtonsContainer = () => {
     dispatch(
       writePost({
         title,
-        body,
+        content,
       }),
     );
   };
@@ -45,6 +45,7 @@ const WriteActionButtonsContainer = () => {
   useEffect(() => {
     if (post) {
       const { _id, user } = post;
+      console.log(user);
       navigate(`/postlist/${user.username}/${_id}`);
     }
     if (postError) {
