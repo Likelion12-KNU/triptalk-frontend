@@ -10,11 +10,15 @@ const TEMP_SET_USER = 'user/TEMP_SET_USER'; // 새로고침 이후 임시 로그
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
   'user/CHECK',
 );
+
+const SET_USER = 'user/SET_USER';
+
 const LOGOUT = 'user/LOGOUT';
 
 export const tempSetUser = createAction(TEMP_SET_USER, user => user);
 export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
+export const setUser = createAction(SET_USER, user => user);
 
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
 
@@ -26,6 +30,14 @@ function checkFailureSaga() {
   }
 }
 
+function setUserSaga(user) {
+  try {
+    console.log('localStorage.setItem(user);');
+    localStorage.setItem(user);
+  } catch (e) {
+    console.log('localStorage is not working');
+  }
+}
 function* logoutSaga() {
   try {
     yield call(authAPI.logout); // logout API 호출
@@ -39,6 +51,7 @@ export function* userSaga() {
   yield takeLatest(CHECK, checkSaga);
   yield takeLatest(CHECK_FAILURE, checkFailureSaga);
   yield takeLatest(LOGOUT, logoutSaga);
+  yield takeLatest(SET_USER, setUserSaga);
 }
 
 const initialState = {
@@ -53,6 +66,11 @@ export default handleActions(
       user,
     }),
     [CHECK_SUCCESS]: (state, { payload: user }) => ({
+      ...state,
+      user,
+      checkError: null,
+    }),
+    [SET_USER]: (state, { payload: user }) => ({
       ...state,
       user,
       checkError: null,
