@@ -13,7 +13,6 @@ const WriteActionButtonsContainer = () => {
     post: write.post,
     postError: write.postError,
 	originalPostId: write.originalPostId,
-	
   }));
 
   // 포스트 등록
@@ -44,9 +43,9 @@ const WriteActionButtonsContainer = () => {
   // 성공 혹은 실패시 할 작업
   useEffect(() => {
     if (post) {
-      const { _id, user } = post;
+      const { id, user, nickname } = post;
       console.log(user);
-      navigate(`/postlist/${user.username}/${_id}`);
+      navigate(`/postlist/${nickname}/${id}`);
     }
     if (postError) {
       console.log(postError);
