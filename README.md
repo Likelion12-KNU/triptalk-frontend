@@ -16,4 +16,19 @@ allowCredentials(true)와 allowedOrigins("*")를 같이 쓰면 CORS 에러가 �
 
 ### 2. postman과 크롬 개발자도구 network에서는 인증 헤더가 보이는데 클라이언트에서는 조작 불가 
 exposedHeaders에 Authorization을 추가해야합니다.   
-postman에서는 보이는 데 res.headers['인증']에서 안보이니까 너무 헤맸어요  ㅠㅠ    
+postman에서는 보이는 데 res.headers['인증']에서 안보이니까 너무 헤맸어요  ㅠㅠ     
+  
+# 시작 방법  
+git clone https://github.com/Likelion12-KNU/triptalk-frontend  
+cd triptalk-frontend   
+npm install  
+npm run dev  
+  
+or  
+  
+git clone https://github.com/Likelion12-KNU/triptalk-frontend   
+cd triptalk-frontend   
+pm2 start ./ecosystem.config.cjs   
+
+
+
