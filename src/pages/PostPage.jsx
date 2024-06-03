@@ -7,6 +7,7 @@ const PostPage = () => {
   <div>
 	<HeaderContainer></HeaderContainer>
 	<PostViewerContainer></PostViewerContainer>
+  
   </div>
   );
 };
