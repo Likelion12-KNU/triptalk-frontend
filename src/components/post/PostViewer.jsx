@@ -25,6 +25,11 @@ h1{
 const PostContent = styled.div`
 font-size: 1.3125rem;
 color: ${palette.gray[8]};
+img{
+	max-width: 100%;
+	height: auto;
+
+}
 `
 
 const PostViewer = ({post, error, loading,actionButtons}) => {
