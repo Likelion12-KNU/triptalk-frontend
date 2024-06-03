@@ -38,6 +38,8 @@ color: ${palette.gray[6]};
 }
 p{
 	margin-top: 2rem;
+	width: 100%;
+	overflow: hidden;
 }
 `
 
