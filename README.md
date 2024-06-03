@@ -10,7 +10,7 @@ VITE_API_URL=https://api.example.com
 # 일지
 ## 잡기 어려웠던 에러들 
 ### 1. postman에서는 되는데,,, 클라이언트 CORS 에러 
-코드 뭔가 일단 CORS 다 푼 것 같았는데 다 푼게 오히려 독이었습니다..  
+코드 뭔가 일단 CORS 다 푼 것 같았는데 에러가 나서 어려웠었는데, 다 푼게 오히려 독이었습니다..  
 allowCredentials(true)와 allowedOrigins("*")를 같이 쓰면 CORS 에러가 난다는 사실을 아셨나요,,  
 여기서 시간을 좀 썼습니다.  
 
