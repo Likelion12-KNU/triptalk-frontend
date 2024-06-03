@@ -4,7 +4,8 @@ import { changeField, initializeForm, register } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
 import { check } from '../../modules/user';
 import { useNavigate } from 'react-router-dom';
-
+import { logout } from '../../modules/user';
+import { authDelete } from '../../modules/auth';
 const RegisterForm = ({ history }) => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -71,20 +72,22 @@ const RegisterForm = ({ history }) => {
     if (auth) {
       console.log('회원가입 성공');
       console.log(auth);
+      dispatch(logout());
+      dispatch(authDelete());
       navigate('/'); 
     }
   }, [auth, authError, dispatch]);
 
-  useEffect(() => {
-    if (user) {
-      navigate('/'); 
-      try {
-        localStorage.setItem('user', JSON.stringify(user));
-      } catch (e) {
-        console.log('localStorage is not working');
-      }
-    }
-  }, [navigate, user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate('/'); 
+  //     try {
+  //       localStorage.setItem('user', JSON.stringify(user));
+  //     } catch (e) {
+  //       console.log('localStorage is not working');
+  //     }
+  //   }
+  // }, [navigate, user]);
 
   return (
     <AuthForm

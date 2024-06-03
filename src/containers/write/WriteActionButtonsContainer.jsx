@@ -23,7 +23,7 @@ const WriteActionButtonsContainer = () => {
         updatePost({
           title,
           content,
-		  id: originalPostId,
+		      id: originalPostId,
         }),
       );
 	  return;
