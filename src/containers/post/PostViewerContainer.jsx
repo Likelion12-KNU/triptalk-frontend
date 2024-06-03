@@ -41,8 +41,8 @@ const PostViewerContainer = () => {
   }
   console.log('user ', user);
   console.log('post ',post);
-  let tempuser =  user && JSON.stringify(user.user);
-  
+  let tempuser =  user && JSON.parse(user.user);
+  console.log('tempuser ',tempuser);
   const ownPost = (user && tempuser.nickname) === (post && post.nickname);
 	
   return <PostViewer post={post} loading={loading} error={error} 
