@@ -43,11 +43,11 @@ p{
 
 
 const PostItem = ({post}) => {
-	const {nickname, title, content, _id} = post;
+	const {nickname, title, content, id} = post;
 	return(
 		<PostItemBlock>
 			<h2>
-			<Link to={`/postlist/${nickname}/${_id}`}>{title}</Link>
+			<Link to={`/postlist/${nickname}/${id}`}>{title}</Link>
 			</h2>
 			<SubInfo username={nickname} ></SubInfo>
 			<p>{content}</p>

@@ -16,7 +16,7 @@ const PostViewerContainer = () => {
     post: post.post,
     error: post.error,
     loading: loading['post/READ_POST'],
-	user: user.user,
+	  user: user,
   }));
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const PostViewerContainer = () => {
 		  console.log(e);
 	  }
   }
-  const ownPost = (user && user._id) === (post && post.user._id);
+  const ownPost = (user && user.id) === (post && post.user.id);
 	
   return <PostViewer post={post} loading={loading} error={error} 
 			 actionButtons={ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove}/>}
