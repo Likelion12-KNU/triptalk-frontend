@@ -32,7 +32,7 @@ img{
 }
 `
 
-const PostViewer = ({post, error, loading,actionButtons}) => {
+const PostViewer = ({post, error, loading, actionButtons}) => {
 	
 	if (error){
 		if (error.response && error.response.status === 404){
