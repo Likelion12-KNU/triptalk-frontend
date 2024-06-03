@@ -8,7 +8,7 @@ const PostListContainer = () => {
 	const {username} = useParams();
 	const [searchParams] = useSearchParams();
 	const dispatch = useDispatch();
-	const {posts, error, loading, user} = useSelector(
+	let {posts, error, loading, user} = useSelector(
 	({posts, loading, user}) => ({
 		posts: posts.posts,
 		error: posts.error,
@@ -21,7 +21,7 @@ const PostListContainer = () => {
 		dispatch(listPosts({username}));
 		
 	}, [dispatch, searchParams, username]);
-	
+
 	return(
 	<PostList
 		loading={loading}

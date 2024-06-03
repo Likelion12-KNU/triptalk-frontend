@@ -47,7 +47,7 @@ const LoginForm = () => {
     if (auth) {
       console.log('로그인 성공');
       // dispatch(check());
-      
+      sessionStorage.setItem('hasReloaded', 'true');
       console.log(auth);
       user = auth.user;
       console.log(user);
