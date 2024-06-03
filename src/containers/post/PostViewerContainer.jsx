@@ -47,7 +47,7 @@ const PostViewerContainer = () => {
   if (typeof user.user === 'string'){
     ownPost = (user && tempuser.nickname) === (post && post.nickname);
   }else{
-    ownPost = (user && user.user.nickname) === (post && post.nickname);
+    ownPost = (user && user.user && user.user.nickname) === (post && post.nickname);
   }
   
 	
