@@ -12,7 +12,7 @@ const PostViewerContainer = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { post, error, loading, user } = useSelector(({ post, loading, user }) => ({
+  let { post, error, loading, user } = useSelector(({ post, loading, user }) => ({
     post: post.post,
     error: post.error,
     loading: loading['post/READ_POST'],
@@ -39,7 +39,11 @@ const PostViewerContainer = () => {
 		  console.log(e);
 	  }
   }
-  const ownPost = (user && user.id) === (post && post.user.id);
+  console.log('user ', user);
+  console.log('post ',post);
+  let tempuser =  user && JSON.stringify(user.user);
+  
+  const ownPost = (user && tempuser.nickname) === (post && post.nickname);
 	
   return <PostViewer post={post} loading={loading} error={error} 
 			 actionButtons={ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove}/>}
