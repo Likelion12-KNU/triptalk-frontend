@@ -4,7 +4,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { readPost, unloadPost } from '../../modules/post';
 // import CommentViewer from '../../components/post/PostViewer';
 import CommentList from '../../components/posts/CommentList';
-import PostActionButtons from '../../components/post/PostActionButtons';
 import {setOriginalPost} from '../../modules/write';
 import {removePost} from '../../lib/api/posts';
 
@@ -26,6 +25,12 @@ const CommentViewerContainer = () => {
     postId: 1,
     content: 'test3',
     nickname: 'test3'
+  },
+  {
+    id: 4,
+    postId: 1,
+    content: 'test3',
+    nickname: 'soc09072'
   }]
   console.log('testcommends ', testcommends);
 
