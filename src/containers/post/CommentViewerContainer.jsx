@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 const CommentViewerContainer = () => {
   // 처음 마운트될 때 포스트 읽기 API 요청
-  let { post, error, loading, user } = useSelector(({ post, loading, user }) => ({
+  let { post, user } = useSelector(({ post, loading, user }) => ({
     post: post.post,
     error: post.error,
     loading: loading['post/READ_POST'],
@@ -45,7 +45,7 @@ const CommentViewerContainer = () => {
   let user_;
 
   const [inputValue, setInputValue] = useState('');
-
+  const [commends, setCommends] = useState([]);
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -71,9 +71,9 @@ const CommentViewerContainer = () => {
 // content: "ㄴㅁㅇ"
 // nickname: "qpqp"
 // postId: 7
-    console.log('CommentViewerContainer commentData:', commentData);
+    // console.log('CommentViewerContainer commentData:', commentData);
     try {
-      const response = await client.post(`/api/posts/${commentData.postId}/comments`, commentData.content, {
+      const response = await client.post(`/api/posts/${post.id}/comments`, commentData.content, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -81,6 +81,8 @@ const CommentViewerContainer = () => {
 
       alert('댓글 등록 성공');
       console.log('댓글 등록 성공:', response.data);
+      setCommends([...commends, response.data]); // 댓글 목록에 추가
+      
       setInputValue(''); // 입력 필드 초기화
 
     } catch (error) {
@@ -88,9 +90,30 @@ const CommentViewerContainer = () => {
       alert('댓글 등록 중 오류가 발생했습니다.');
     }
   };
+  
+
+  useEffect(() => {
+    // 댓글 리스트 가져오기
+    const fetchComments = async () => {
+      try {
+        const response = await client.get(`/api/posts/${post.id}/comments`);
+        
+        setCommends(response.data);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    };
+
+    fetchComments();
+  }, [post]); 
 
   return (<CommentList commendValue={inputValue} onCreateComment={handleSubmit} 
-  commendhandleChange={handleChange} user = {user_} commends={testcommends} />);
+  commendhandleChange={handleChange} user = {user_} commends={commends} 
+  post={post}
+  setComments={setCommends}
+  
+  
+  />);
 };
 
 export default CommentViewerContainer;

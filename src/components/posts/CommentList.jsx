@@ -4,6 +4,8 @@ import Responsive from '../common/Responsive';
 import Button from '../common/Button';
 import SubInfo from '../common/SubInfo';
 import {Link} from 'react-router-dom';
+import client from '../../lib/api/client';
+import { useState } from 'react';
 
 const CommendListBlock = styled(Responsive)`
 	margin-top: 3rem;
@@ -49,7 +51,32 @@ p{
 .deletecommend{
 	right: 2px;
 }
+.editCommentInput{
+	margin-top: 10px;
+	position: relative;
+	background: #ffffff;
+	width: 100%;
+	height: 50px;
+	z-index: 999;
+	input{
+		width: 80%;
+		height: 30px;
+		margin-top: 10px;
+		position: absolute;
+	}
 
+	.editSaveButton{
+		top: 10px;
+		right: 10px;
+		position: absolute;
+	}
+	.editCancelButton{
+		top: 10px;
+		right: 90px;
+		position: absolute;
+	
+	}
+}
 `
 
 const ActionButton = styled.button`
@@ -73,23 +100,69 @@ const ActionButton = styled.button`
 	
 `;
 
-
-const CommendItem = ({commend, user, onEditComment, onDeleteCommend}) => {
+const CommendItem = ({commend, user, post, commends, setComments}) => {
+// const CommendItem = ({commend, user, onEditComment, onDeleteCommend}) => {
+	const [isEditing, setIsEditing] = useState(false);
+	const [commentContent, setCommentContent] = useState(commend.content);
 	// const {nickname, title, content, id} = post;
-	// console.log('commend ', commend);'
+	console.log('commend ', commend);
 	console.log('CommendItem user ', user);
 	console.log('CommendItem commend', commend);
+
+	const onEditComment = async () => {
+		setIsEditing(true);
+	}
+	const onDeleteCommend = async () => {
+		try {
+			const response = await client.delete(`/api/posts/${commend.postId}/comments/${commend.id}`, {});
+			if(response.status === 401){
+				alert('로그인이 필요합니다.');
+				return;
+			}
+			setComments(commends.filter(c => c.id !== commend.id));
+
+		} catch (error) {
+			console.error('Error:', error);
+			alert('댓글 삭제 중 오류가 발생했습니다.');
+		}
+		// console.log('삭제');
+	}
+	const onSaveComment = async () => {
+		try{
+			const updatedContent = commentContent;
+			const response = await client.put(`/api/posts/${commend.postId}/comments/${commend.id}`, {content: updatedContent});
+			setComments(commends.map(c => c.id === commend.id ? {...c, content: updatedContent} : c));
+			setIsEditing(false);
+			if(response.status === 401){
+				alert('로그인이 필요합니다.');
+				return;
+			}
+		}catch(error){
+			console.error('Error:', error);
+			alert('댓글 수정 중 오류가 발생했습니다.');
+		}
+	}
 	return(
 		<CommendItemBlock>
 			<p className='commendName'>{commend.nickname}</p> <p>{commend.content}</p> 
-			{ user && user.nickname == commend.nickname &&
- 			(<><ActionButton onClick={onEditComment} className='editcommend'>수정</ActionButton> 
-			<ActionButton onClick={onDeleteCommend} className='deletecommend'>삭제</ActionButton></>)}
+			{ user && user.nickname == commend.nickname && 
+ 			(<>{ !isEditing && <><ActionButton onClick={onEditComment} className='editcommend'>수정</ActionButton> 
+			<ActionButton onClick={onDeleteCommend} className='deletecommend'>삭제</ActionButton></>}
+			{isEditing && (
+			<div className="editCommentInput">
+				<input onChange={(e) => setCommentContent(e.target.value)} type="text" defaultValue={commend.content} />
+				<ActionButton className="editSaveButton" onClick={onSaveComment}>수정 완료</ActionButton>
+				<ActionButton className="editCancelButton" onClick={() => setIsEditing(false)}>취소</ActionButton>
+			</div>
+			)}
+			
+			</>
+		)}
 		</CommendItemBlock>
 	)
 }
 
-const CommendList = ({commends, user, onCreateComment, commendValue, commendhandleChange}) => {
+const CommendList = ({commends, user, onCreateComment, commendValue, commendhandleChange, post, setComments}) => {
 	console.log('commends2 ', commends);
 	
 	return(
@@ -98,7 +171,7 @@ const CommendList = ({commends, user, onCreateComment, commendValue, commendhand
 			{commends && (
 			<div>
 			{commends.map(commend=>(
-					<CommendItem user={user} commend={commend} key={commend.id} ></CommendItem>
+					<CommendItem commends={commends} post={post} user={user} commend={commend} key={commend.id} setComments={setComments} ></CommendItem>
 					))}
 			</div>
 			)}
