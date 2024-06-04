@@ -9,6 +9,12 @@ import {removePost} from '../../lib/api/posts';
 
 const CommentViewerContainer = () => {
   // 처음 마운트될 때 포스트 읽기 API 요청
+  let { post, error, loading, user } = useSelector(({ post, loading, user }) => ({
+    post: post.post,
+    error: post.error,
+    loading: loading['post/READ_POST'],
+	  user: user,
+  }));
 
 	let testcommends = [{
     id: 1,
@@ -35,7 +41,7 @@ const CommentViewerContainer = () => {
   console.log('testcommends ', testcommends);
 
 
-  return <CommentList commends={testcommends} />;
+  return <CommentList user = {user} commends={testcommends} />;
 };
 
 export default CommentViewerContainer;

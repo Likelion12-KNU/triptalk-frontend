@@ -74,17 +74,20 @@ const ActionButton = styled.button`
 `;
 
 
-const CommendItem = ({commend}) => {
+const CommendItem = ({commend, user}) => {
 	// const {nickname, title, content, id} = post;
 	// console.log('commend ', commend);
 	return(
 		<CommendItemBlock>
-			<p className='commendName'>{commend.content}</p> <p>{commend.nickname}</p> <ActionButton className='editcommend'>수정</ActionButton> <ActionButton className='deletecommend'>삭제</ActionButton>
+			<p className='commendName'>{commend.content}</p> <p>{commend.nickname}</p> 
+			{ user && user.nickname == commend.nickname &&
+ 			(<><ActionButton className='editcommend'>수정</ActionButton> 
+			<ActionButton className='deletecommend'>삭제</ActionButton></>)}
 		</CommendItemBlock>
 	)
 }
 
-const CommendList = ({commends}) => {
+const CommendList = ({commends, user}) => {
 	console.log('commends2 ', commends);
 	return(
 	<CommendListBlock>
@@ -92,14 +95,19 @@ const CommendList = ({commends}) => {
 			{commends && (
 			<div>
 			{commends.map(commend=>(
-					<CommendItem commend={commend} key={commend.id} ></CommendItem>
+					<CommendItem user={user} commend={commend} key={commend.id} ></CommendItem>
 					))}
 			</div>
 			)}
 		</div>
 		<div className='createZone'>
-		<input type="text" placeholder="댓글을 입력하세요"></input>
-		<ActionButton className='createButton'>등록</ActionButton>
+		{
+			user && (<>
+			<input type="text" placeholder="댓글을 입력하세요"></input>
+			<ActionButton className='createButton'>등록</ActionButton>
+			</>
+		)
+		}
 		</div>
 	</CommendListBlock>
 	)
