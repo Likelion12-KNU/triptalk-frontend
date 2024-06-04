@@ -6,6 +6,8 @@ import { readPost, unloadPost } from '../../modules/post';
 import CommentList from '../../components/posts/CommentList';
 import {setOriginalPost} from '../../modules/write';
 import {removePost} from '../../lib/api/posts';
+import client from '../../lib/api/client';
+import { useState } from 'react';
 
 const CommentViewerContainer = () => {
   // 처음 마운트될 때 포스트 읽기 API 요청
@@ -42,13 +44,53 @@ const CommentViewerContainer = () => {
   let tempuser = user && typeof user.user === 'string' && JSON.parse(user.user);
   let user_;
 
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
+  
   if (typeof user.user === 'string'){
     user_ = user && tempuser;
   }else{
     user_ = user && user.user ;
   }
+  
+  const handleSubmit = async () => {
+    if (inputValue.trim() === '') {
+      alert('댓글을 입력하세요.');
+      return;
+    }
 
-  return <CommentList user = {user_} commends={testcommends} />;
+    const commentData = {
+      postId: post.id,
+      content: inputValue,
+      nickname: post.nickname 
+    };
+    
+// content: "ㄴㅁㅇ"
+// nickname: "qpqp"
+// postId: 7
+    console.log('CommentViewerContainer commentData:', commentData);
+    try {
+      const response = await client.post(`/api/posts/${commentData.postId}/comments`, commentData.content, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      alert('댓글 등록 성공');
+      console.log('댓글 등록 성공:', response.data);
+      setInputValue(''); // 입력 필드 초기화
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('댓글 등록 중 오류가 발생했습니다.');
+    }
+  };
+
+  return (<CommentList commendValue={inputValue} onCreateComment={handleSubmit} 
+  commendhandleChange={handleChange} user = {user_} commends={testcommends} />);
 };
 
 export default CommentViewerContainer;

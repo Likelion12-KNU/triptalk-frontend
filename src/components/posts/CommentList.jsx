@@ -89,7 +89,7 @@ const CommendItem = ({commend, user, onEditComment, onDeleteCommend}) => {
 	)
 }
 
-const CommendList = ({commends, user, onCreateComment}) => {
+const CommendList = ({commends, user, onCreateComment, commendValue, commendhandleChange}) => {
 	console.log('commends2 ', commends);
 	
 	return(
@@ -107,7 +107,7 @@ const CommendList = ({commends, user, onCreateComment}) => {
 		{
 			user && (
 			<>
-			<input type="text" placeholder="댓글을 입력하세요"></input>
+			<input type="text" value={commendValue} onChange={commendhandleChange} placeholder="댓글을 입력하세요"></input>
 			<ActionButton onClick={onCreateComment} className='createButton'>등록</ActionButton>
 			</>
 		)
