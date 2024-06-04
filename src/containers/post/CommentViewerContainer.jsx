@@ -39,9 +39,16 @@ const CommentViewerContainer = () => {
     nickname: 'soc09072'
   }]
   console.log('testcommends ', testcommends);
+  let tempuser = user && typeof user.user === 'string' && JSON.parse(user.user);
+  let user_;
 
+  if (typeof user.user === 'string'){
+    user_ = user && tempuser;
+  }else{
+    user_ = user && user.user ;
+  }
 
-  return <CommentList user = {user} commends={testcommends} />;
+  return <CommentList user = {user_} commends={testcommends} />;
 };
 
 export default CommentViewerContainer;
