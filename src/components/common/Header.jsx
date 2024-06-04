@@ -7,8 +7,9 @@ import Button from './Button';
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  background: #bbefff;
+  background: #bbefff99;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  z-index : 99;
 `;
 
 
