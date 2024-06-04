@@ -2,60 +2,45 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
-import * as postsAPI from '../lib/api/posts';
+import * as commentsAPI from '../lib/api/comments';
 import { takeLatest } from 'redux-saga/effects';
 
 const [
-  READ_POST,
-  READ_POST_SUCCESS,
-  READ_POST_FAILURE,
-] = createRequestActionTypes('post/READ_POST');
+  LIST_COMMENTS,
+  LIST_COMMENTS_SUCCESS,
+  LIST_COMMENTS_FAILURE,
+] = createRequestActionTypes('comments/LIST_COMMENTS');
 
-const UNLOAD_POST = 'post/UNLOAD_POST'; // 포스트페이지에서 벗어날때 데이터 비우기 그래야 나중에 깜박임이 안생긴다.
-
-export const readPost = createAction(READ_POST, id => id);
-export const unloadPost = createAction(UNLOAD_POST);
+export const listPosts = createAction(
+	LIST_COMMENTS,
+	({username}) => ({username}),
+);
 
 // saga 생성
-const readPostSaga = createRequestSaga(READ_POST, postsAPI.readPost);
+const listCommentsSaga = createRequestSaga(LIST_COMMENTS, commentsAPI.readComments);
 
-export function* postSaga() {
-  yield takeLatest(READ_POST, readPostSaga);
+export function* commentsSaga() {
+  yield takeLatest(LIST_COMMENTS, listCommentsSaga);
 }
 
 const initialState = {
-  post: null,
+  comments: [],
   error: null,
 };
 
-const post = handleActions(
+const comments = handleActions(
   {
-    [READ_POST_SUCCESS]: (state, { payload: post }) => ({
+    [LIST_POSTS_SUCCESS]: (state, { payload: posts }) => ({
       ...state,
-      post,
+      posts,
     }),
     // 포스트 작성 실패
-    [READ_POST_FAILURE]: (state, { payload: error }) => ({
+    [LIST_POSTS_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),
-	[UNLOAD_POST]: () => initialState,
   },
   initialState,
 );
 
-export default post;
-
-// export const writeComment = ({ id, content }) =>
-//     client.post(`/api/posts/${id}`, {content});
-  
-//   export const readComment = id => 
-//       client.get(`/api/posts/${id}/commnets`);
-    
-//   export const updateComment = ({postId, commentId, content}) => 
-//     client.put(`/api/posts/${postId}/comments/${commentId}`, {
-//       content,
-//   });
-    
-//   export const removeComment = ({postId, commentId}) => 
-//       client.delete(`/api/posts/${postId}/comments/${commentId}`);
+export default comments;
