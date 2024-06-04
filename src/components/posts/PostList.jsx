@@ -67,7 +67,7 @@ const PostList = ({posts, loading, error, showWriteButton}) => {
 	if (error){
 		return <PostListBlock>에러가 발생하였습니다.</PostListBlock>
 	}
-	let reversePosts = posts.reverse();
+	// let reversePosts = posts.reverse();
 	return(
 	<PostListBlock>
 		<WritePostButtonWrapper>
@@ -80,7 +80,7 @@ const PostList = ({posts, loading, error, showWriteButton}) => {
 		<div>
 			{!loading && posts && (
 			<div>
-			{reversePosts.map(post=>(
+			{posts.slice().reverse().map(post=>(
 					<PostItem post={post} key={post.id} ></PostItem>
 					))}
 			</div>
