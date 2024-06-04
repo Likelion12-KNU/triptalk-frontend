@@ -74,21 +74,24 @@ const ActionButton = styled.button`
 `;
 
 
-const CommendItem = ({commend, user}) => {
+const CommendItem = ({commend, user, onEditComment, onDeleteCommend}) => {
 	// const {nickname, title, content, id} = post;
-	// console.log('commend ', commend);
+	// console.log('commend ', commend);'
+	console.log('CommendItem user ', user);
+	console.log('CommendItem commend', commend);
 	return(
 		<CommendItemBlock>
-			<p className='commendName'>{commend.content}</p> <p>{commend.nickname}</p> 
+			<p className='commendName'>{commend.nickname}</p> <p>{commend.content}</p> 
 			{ user && user.nickname == commend.nickname &&
- 			(<><ActionButton className='editcommend'>수정</ActionButton> 
-			<ActionButton className='deletecommend'>삭제</ActionButton></>)}
+ 			(<><ActionButton onClick={onEditComment} className='editcommend'>수정</ActionButton> 
+			<ActionButton onClick={onDeleteCommend} className='deletecommend'>삭제</ActionButton></>)}
 		</CommendItemBlock>
 	)
 }
 
-const CommendList = ({commends, user}) => {
+const CommendList = ({commends, user, onCreateComment}) => {
 	console.log('commends2 ', commends);
+	
 	return(
 	<CommendListBlock>
 		<div>
@@ -102,9 +105,10 @@ const CommendList = ({commends, user}) => {
 		</div>
 		<div className='createZone'>
 		{
-			user && (<>
+			user && (
+			<>
 			<input type="text" placeholder="댓글을 입력하세요"></input>
-			<ActionButton className='createButton'>등록</ActionButton>
+			<ActionButton onClick={onCreateComment} className='createButton'>등록</ActionButton>
 			</>
 		)
 		}
