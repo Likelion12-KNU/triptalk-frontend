@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Responsive from './Responsive';
 import Button from './Button';
-
+// import airimg from '../../img/airplane.png';
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
