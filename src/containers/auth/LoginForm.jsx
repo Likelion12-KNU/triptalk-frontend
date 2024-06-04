@@ -74,7 +74,7 @@ const LoginForm = () => {
   //   }
   // }, [navigate, user]);
 
-  return (
+  return (<div>
     <AuthForm
       type="login"
       form={form}
@@ -82,6 +82,9 @@ const LoginForm = () => {
       onSubmit={onSubmit}
       error={error}
     />
+    
+    </div>
+
   );
 };
 
