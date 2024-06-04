@@ -40,19 +40,25 @@ p{
 	margin-top: 2rem;
 	width: 100%;
 	overflow: hidden;
+	height: 40px;
 }
 `
-
+const stripHtmlTags = (html) => {
+	const doc = new DOMParser().parseFromString(html, 'text/html');
+	return doc.body.textContent || "";
+};
 
 const PostItem = ({post}) => {
-	const {nickname, title, content, id} = post;
+	let {nickname, title, content, id} = post;
+
+	const plainTextContent = stripHtmlTags(content);
 	return(
 		<PostItemBlock>
 			<h2>
 			<Link to={`/postlist/${nickname}/${id}`}>{title}</Link>
 			</h2>
 			<SubInfo username={nickname} ></SubInfo>
-			<p>{content}</p>
+			<p>{plainTextContent}</p>
 		</PostItemBlock>
 	)
 }
